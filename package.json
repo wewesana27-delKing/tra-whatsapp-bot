@@ -1,0 +1,13 @@
+{
+  "name": "tra-whatsapp-bot",
+  "version": "1.0.0",
+  "description": "Demo WhatsApp chatbot ya TRA - FAQ na Office Directory",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "axios": "^1.7.2"
+  }
+}

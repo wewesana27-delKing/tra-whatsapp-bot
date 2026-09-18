@@ -1,0 +1,32 @@
+[
+  {
+    "id": "tin_new",
+    "keywords": ["tin", "namba ya mlipa kodi", "nipate wapi tin", "sina tin"],
+    "swali": "Nipate wapi TIN?",
+    "jibu": "Unaweza kupata TIN (Taxpayer Identification Number) kwa kujisajili mtandaoni kupitia mfumo wa TRA (Taxpayer Portal) kwa kutumia kitambulisho chako (NIDA), au kwa kufika ofisi ya TRA iliyo karibu nawe. Usajili wa TIN kwa mtu binafsi ni bure."
+  },
+  {
+    "id": "vat_rate",
+    "keywords": ["vat", "kodi ya ongezeko la thamani", "asilimia ngapi vat"],
+    "swali": "VAT ni asilimia ngapi Tanzania?",
+    "jibu": "Kiwango cha kawaida cha VAT Tanzania ni asilimia 18%. Baadhi ya bidhaa na huduma maalum zinaweza kuwa na msamaha au kiwango tofauti - wasiliana na TRA kwa uhakika kulingana na aina ya biashara yako."
+  },
+  {
+    "id": "efd",
+    "keywords": ["efd", "mashine ya risiti", "electronic fiscal device"],
+    "swali": "EFD ni nini?",
+    "jibu": "EFD (Electronic Fiscal Device) ni mashine ya kielektroniki inayotumika kutoa risiti za mauzo na kutuma taarifa za mauzo moja kwa moja TRA. Kila mfanyabiashara mwenye mauzo yanayozidi kiwango kilichowekwa analazimika kuwa na EFD."
+  },
+  {
+    "id": "income_tax_pay",
+    "keywords": ["kulipa kodi ya mapato", "income tax", "namna ya kulipa kodi"],
+    "swali": "Nailipaje kodi ya mapato?",
+    "jibu": "Kodi ya mapato inaweza kulipwa kupitia benki zilizoidhinishwa, mitandao ya simu (mfano M-Pesa, Tigo Pesa), au TRA Online Payment System kwa kutumia control number utakayopata baada ya kujaza tamko lako la kodi."
+  },
+  {
+    "id": "tax_clearance",
+    "keywords": ["tax clearance", "cheti cha kutokuwa na deni", "hati ya kodi"],
+    "swali": "Nipate wapi Tax Clearance Certificate?",
+    "jibu": "Tax Clearance Certificate hutolewa baada ya kuwasilisha maombi kupitia TRA Online Portal, mradi huna deni la kodi lililobaki. Uchakataji huchukua muda mfupi endapo taarifa zote ni sahihi."
+  }
+]
