@@ -1,5 +1,8 @@
-// TRA WhatsApp Chatbot - Demo MVP
-// Inatumia Meta WhatsApp Cloud API + keyword matching (hakuna gharama ya AI kwa demo hii)
+// TRA WhatsApp Chatbot
+// Inatumia Meta WhatsApp Cloud API + Claude AI (claude-haiku-4-5) kwa majibu
+// yenye akili, yaliyofungiwa kwenye mambo ya kodi/TRA Tanzania pekee.
+// Kama Claude AI itashindwa (mfano hakuna ANTHROPIC_API_KEY), bot inarudi
+// kwenye keyword-matching rahisi (keywordFallback) badala ya kunyamaza kabisa.
 
 const express = require("express");
 const axios = require("axios");
@@ -12,6 +15,67 @@ app.use(express.json());
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN || "tra_demo_token";
 const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
 const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+
+// ======================================================
+// CLAUDE AI - JIBU LENYE "AKILI", LIMEFUNGIWA TRA/KODI TU
+// ======================================================
+
+const KNOWLEDGE_BASE = JSON.stringify({ faq, offices });
+
+const SYSTEM_PROMPT = `
+Wewe ni msaidizi wa kidijitali wa TRA (Tanzania Revenue Authority) kwenye WhatsApp.
+
+MUHIMU - MIPAKA YAKO:
+- Jibu MASWALI YA KODI NA TRA TU: TIN, VAT, EFD, kodi ya mapato, tax clearance,
+  ofisi za TRA, forodha (customs), na taratibu nyingine za kodi Tanzania.
+- Kama swali halihusiani na kodi/TRA kabisa (mfano: mpira, mapenzi, hali ya hewa,
+  siasa, nchi nyingine), kataa kwa upole na umkumbushe mtumiaji kuwa wewe ni
+  msaidizi wa mambo ya kodi ya TRA pekee.
+- Usijibu maswali kuhusu taasisi nyingine za serikali isipokuwa yanahusiana moja
+  kwa moja na kodi (mfano BRELA kwa usajili wa biashara unaruhusiwa kwa ufupi).
+
+JINSI YA KUJIBU:
+- Tumia taarifa zilizoko kwenye "KNOWLEDGE BASE" hapa chini kama chanzo chako kikuu
+  cha ukweli (majibu ya FAQ na namba/anwani za ofisi). Usibuni namba za simu au
+  taarifa ambazo hazipo kwenye knowledge base hii.
+- Mtumiaji anaweza kuandika kwa makosa ya tahajia, lugha isiyo rasmi, mchanganyiko
+  wa Kiswahili na Kiingereza, au kifupisho - elewa nia yake hata kama maneno
+  hayajaandikwa sahihi kabisa (mfano "nataka tini", "vat ni ngapi%", "ofisi arsha").
+- Jibu kwa Kiswahili cha kawaida, cha heshima, kifupi na wazi - kama afisa mzuri
+  wa huduma kwa wateja, si kama roboti inayosoma script.
+- Ukiwa na uhakika ni ofisi/mkoa gani analozungumzia licha ya kuandika kwa makosa,
+  mpe taarifa za ofisi hiyo moja kwa moja.
+- Kama huna uhakika kabisa mtumiaji anataka nini, muulize swali fupi la ufafanuzi
+  badala ya kubahatisha.
+- Usitumie alama za markdown kama ** au # - andika maandishi ya kawaida tu kwa
+  sababu haya yanaenda WhatsApp.
+
+KNOWLEDGE BASE (JSON):
+${KNOWLEDGE_BASE}
+`.trim();
+
+async function askClaude(userText) {
+  const response = await axios.post(
+    "https://api.anthropic.com/v1/messages",
+    {
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 500,
+      system: SYSTEM_PROMPT,
+      messages: [{ role: "user", content: userText }],
+    },
+    {
+      headers: {
+        "x-api-key": ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const textBlock = response.data.content.find((b) => b.type === "text");
+  return textBlock ? textBlock.text.trim() : null;
+}
 
 // --- Hatua 1: Meta inathibitisha webhook yako (GET) ---
 app.get("/webhook", (req, res) => {
@@ -40,19 +104,31 @@ app.post("/webhook", async (req, res) => {
     const from = message.from; // namba ya mtumiaji
     const text = message.text.body;
 
-    const reply = buildReply(text);
+    let reply;
+    try {
+      reply = await askClaude(text);
+      if (!reply) throw new Error("Claude hakurudisha maandishi.");
+    } catch (aiErr) {
+      console.error(
+        "Claude AI imeshindwa, tunatumia keyword fallback:",
+        aiErr.message
+      );
+      reply = keywordFallback(text);
+    }
+
     await sendWhatsAppMessage(from, reply);
   } catch (err) {
     console.error("Hitilafu kuchakata ujumbe:", err.message);
   }
 });
 
-// --- Logic ya kutafuta jibu sahihi (FAQ au Ofisi) ---
+// --- Fallback ya keyword-matching (inatumika TU kama Claude AI itashindikana,
+//     kwa mfano ANTHROPIC_API_KEY haipo au huduma ya Anthropic ipo down) ---
 function normalize(str) {
   return str.toLowerCase().trim();
 }
 
-function buildReply(userText) {
+function keywordFallback(userText) {
   const text = normalize(userText);
 
   // 1) Dar es Salaam ina kanda tano tofauti - tuzitofautishe na mikoa mingine
