@@ -2,6 +2,7 @@
   "call_centre": {
     "jina": "TRA Call Centre",
     "namba": ["0800 750 075", "0800 780 078", "0800 110 016"],
+    "whatsapp": "0744 233 333",
     "masaa": "08:00 - 19:00 (Jumatatu - Ijumaa)",
     "maelezo": "Piga bure kutoka Tanzania kwa maswali ya jumla, malalamiko na taarifa za mfumo."
   },
@@ -10,47 +11,42 @@
     "anwani": "28 Edward Sokoine Drive, Mchafukoge, Ilala CBD, P.O. Box 11491, Dar es Salaam",
     "simu": "+255 22 2116453"
   },
-  "mikoa": [
-    {
-      "mkoa": "Arusha",
-      "sanduku_posta": "P.O. Box 3153",
-      "simu": ["+255 27 254 5967"]
-    },
-    {
-      "mkoa": "Pwani (Coast)",
-      "sanduku_posta": "P.O. Box 30165",
-      "simu": ["+255 23 240 2037", "+255 23 240 2117"]
-    },
-    {
-      "mkoa": "Iringa",
-      "sanduku_posta": "P.O. Box 372",
-      "simu": ["+255 26 270 0144", "+255 26 270 2142", "+255 26 270 2581"]
-    },
-    {
-      "mkoa": "Kagera",
-      "sanduku_posta": "P.O. Box 952",
-      "simu": ["+255 28 222 0390"]
-    },
-    {
-      "mkoa": "Kigoma",
-      "sanduku_posta": "P.O. Box 296",
-      "simu": ["+255 28 280 2054", "+255 28 280 2015"]
-    },
-    {
-      "mkoa": "Kilimanjaro",
-      "sanduku_posta": "P.O. Box 1582",
-      "simu": ["+255 27 275 3268", "+255 27 275 5074"]
-    },
-    {
-      "mkoa": "Dodoma",
-      "sanduku_posta": "P.O. Box 679",
-      "simu": ["+255 26 232 2912", "+255 26 232 0082"]
-    },
-    {
-      "mkoa": "Kahama",
-      "sanduku_posta": "P.O. Box 7",
-      "simu": ["+255 28 271 0042"]
-    }
+  "dar_es_salaam_zones": [
+    { "kanda": "Ilala", "anwani": "Diamond Plaza Building, Samora-Mirambo Street, P.O. Box 25216", "simu": "0790 639 770" },
+    { "kanda": "Kariakoo", "anwani": "Summit Tower, Lumumba Street, P.O. Box 9921", "simu": "+255 677 051 219" },
+    { "kanda": "Kinondoni", "anwani": "PSSSF Commercial Tower, Sam Nujoma Road, P.O. Box 9774", "simu": "+255 22 2771859" },
+    { "kanda": "Temeke", "anwani": "PSSSF Quality Plaza, Mwalimu Nyerere Road, P.O. Box 45941", "simu": "+255 677 051 244" },
+    { "kanda": "Tegeta/Kinondoni Kaskazini", "anwani": "Kibo Complex, Bagamoyo Road, P.O. Box 66744", "simu": "+255 22 292 6311" }
   ],
-  "_maelezo": "Hii ni sampuli tu ya baadhi ya mikoa kutoka tra.go.tz/index.php/contact-us. Kabla ya demo, ongeza mikoa yote na uthibitishe namba zote ni sahihi na za sasa moja kwa moja kwenye tovuti rasmi."
+  "mikoa": [
+    { "mkoa": "Arusha", "sanduku_posta": "P.O. Box 3153", "simu": ["0677 051 843"] },
+    { "mkoa": "Pwani", "aliases": ["coast"], "sanduku_posta": "P.O. Box 30165, Kibaha", "simu": ["+255 736 991 199"] },
+    { "mkoa": "Dodoma", "sanduku_posta": "P.O. Box 679", "simu": ["+255 26 232 0082", "+255 26 232 2912"] },
+    { "mkoa": "Geita", "sanduku_posta": "P.O. Box 263", "simu": ["+255 28 2520042"] },
+    { "mkoa": "Iringa", "sanduku_posta": "P.O. Box 372", "simu": ["+255 26 270 0144"] },
+    { "mkoa": "Kagera", "sanduku_posta": "P.O. Box 952, Bukoba", "simu": ["+255 28 222 0390"] },
+    { "mkoa": "Kahama", "sanduku_posta": "P.O. Box 7", "simu": ["+255 22 286 1167"] },
+    { "mkoa": "Katavi", "sanduku_posta": "P.O. Box 90", "simu": ["0522 820029"] },
+    { "mkoa": "Kigoma", "sanduku_posta": "P.O. Box 296", "simu": ["+255 677 051 861"] },
+    { "mkoa": "Kilimanjaro", "sanduku_posta": "P.O. Box 1582, Moshi", "simu": ["0677 051 038"] },
+    { "mkoa": "Lindi", "sanduku_posta": "P.O. Box 389", "simu": ["+255 677 051 492"] },
+    { "mkoa": "Manyara", "sanduku_posta": "P.O. Box 169, Babati", "simu": ["+255 27 251 0050"] },
+    { "mkoa": "Mara", "sanduku_posta": "P.O. Box 34, Musoma", "simu": ["+255 28 262 2551"] },
+    { "mkoa": "Mbeya", "sanduku_posta": "P.O. Box 674", "simu": ["+255 25 250 2134"] },
+    { "mkoa": "Morogoro", "sanduku_posta": "P.O. Box 988", "simu": ["0232 613232"] },
+    { "mkoa": "Mtwara", "sanduku_posta": "P.O. Box 639", "simu": ["0677 050618"] },
+    { "mkoa": "Mwanza", "sanduku_posta": "P.O. Box 1404", "simu": ["028 250 0906"] },
+    { "mkoa": "Njombe", "sanduku_posta": "P.O. Box 395", "simu": ["+255 26 278 2391"] },
+    { "mkoa": "Pemba", "sanduku_posta": "P.O. Box 194", "simu": ["+255 24 245 2033"] },
+    { "mkoa": "Rukwa", "sanduku_posta": "P.O. Box 343, Sumbawanga", "simu": ["0252 802226"] },
+    { "mkoa": "Ruvuma", "sanduku_posta": "P.O. Box 401, Songea", "simu": ["+255 252 602 140"] },
+    { "mkoa": "Shinyanga", "sanduku_posta": "P.O. Box 112", "simu": ["+255 677 050546"] },
+    { "mkoa": "Simiyu", "sanduku_posta": "P.O. Box 33, Bariadi", "simu": ["+255 28 2700050"] },
+    { "mkoa": "Singida", "sanduku_posta": "P.O. Box 118", "simu": ["+255 26 250 2320"] },
+    { "mkoa": "Songwe", "sanduku_posta": "P.O. Box 54, Mbozi", "simu": ["+255 25 258 0020"] },
+    { "mkoa": "Tabora", "sanduku_posta": "P.O. Box 284", "simu": ["026 260 4605"] },
+    { "mkoa": "Tanga", "sanduku_posta": "P.O. Box 1400", "simu": ["+255 27 264 2200"] },
+    { "mkoa": "Zanzibar", "aliases": ["unguja"], "sanduku_posta": "P.O. Box 161", "simu": ["0677 062175"] }
+  ],
+  "_maelezo": "Data hii imechukuliwa kutoka tra.go.tz/index.php/contact-us (Septemba 2026). Thibitisha usahihi kabla ya matumizi rasmi ya muda mrefu, kwani namba na anwani zinaweza kubadilika."
 }
