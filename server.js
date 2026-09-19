@@ -1,5 +1,5 @@
 // TRA WhatsApp Chatbot - Demo MVP
-// Meta WhatsApp Cloud API + keyword matching
+// Inatumia Meta WhatsApp Cloud API + keyword matching (hakuna gharama ya AI kwa demo hii)
 
 const express = require("express");
 const axios = require("axios");
@@ -7,127 +7,75 @@ const faq = require("./data/faq.json");
 const offices = require("./data/offices.json");
 
 const app = express();
-
 app.use(express.json());
-
-// ======================================================
-// ENVIRONMENT VARIABLES
-// ======================================================
 
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN || "tra_demo_token";
 const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
 const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
 
-// ======================================================
-// WEBHOOK VERIFICATION - GET
-// ======================================================
-
+// --- Hatua 1: Meta inathibitisha webhook yako (GET) ---
 app.get("/webhook", (req, res) => {
   const mode = req.query["hub.mode"];
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
 
-  console.log("Webhook verification request imefika.");
-
   if (mode === "subscribe" && token === VERIFY_TOKEN) {
     console.log("Webhook imethibitishwa.");
     return res.status(200).send(challenge);
   }
-
-  console.log("Webhook verification imekataliwa.");
   return res.sendStatus(403);
 });
 
-// ======================================================
-// INCOMING WHATSAPP MESSAGE - POST
-// ======================================================
-
+// --- Hatua 2: Ujumbe unaoingia kutoka kwa mtumiaji (POST) ---
 app.post("/webhook", async (req, res) => {
-  // Jibu Meta haraka
+  // Jibu haraka Meta ili isirudie kutuma tena ujumbe huo
   res.sendStatus(200);
 
   try {
-    console.log("WhatsApp webhook imepokelewa.");
-
     const entry = req.body.entry?.[0];
     const change = entry?.changes?.[0];
-    const value = change?.value;
-    const message = value?.messages?.[0];
+    const message = change?.value?.messages?.[0];
+    if (!message || message.type !== "text") return;
 
-    // Kama hakuna message, usiendelee
-    if (!message) {
-      console.log("Webhook imefika lakini hakuna message.");
-      return;
-    }
-
-    // Kwa sasa bot inashughulikia text tu
-    if (message.type !== "text") {
-      console.log("Message sio text:", message.type);
-      return;
-    }
-
-    const from = message.from;
+    const from = message.from; // namba ya mtumiaji
     const text = message.text.body;
 
-    console.log(`Ujumbe kutoka ${from}: ${text}`);
-
     const reply = buildReply(text);
-
-    console.log("Jibu la bot:", reply);
-
     await sendWhatsAppMessage(from, reply);
-
-    console.log("Jibu limetumwa WhatsApp kikamilifu.");
-
   } catch (err) {
-    console.error(
-      "Hitilafu kuchakata ujumbe:",
-      err.message
-    );
-
-    // Hii itaonyesha sababu halisi kutoka Meta
-    if (err.response) {
-      console.error(
-        "Meta API status:",
-        err.response.status
-      );
-
-      console.error(
-        "Meta API error:",
-        JSON.stringify(err.response.data, null, 2)
-      );
-    } else {
-      console.error(
-        "Error details:",
-        err
-      );
-    }
+    console.error("Hitilafu kuchakata ujumbe:", err.message);
   }
 });
 
-// ======================================================
-// NORMALIZE TEXT
-// ======================================================
-
+// --- Logic ya kutafuta jibu sahihi (FAQ au Ofisi) ---
 function normalize(str) {
   return str.toLowerCase().trim();
 }
 
-// ======================================================
-// BUILD BOT REPLY
-// ======================================================
-
 function buildReply(userText) {
   const text = normalize(userText);
 
-  // ----------------------------------------------------
-  // 1. OFISI / MKOA
-  // ----------------------------------------------------
+  // 1) Dar es Salaam ina kanda tano tofauti - tuzitofautishe na mikoa mingine
+  if (
+    text.includes("dar es salaam") ||
+    text.includes("dar-es-salaam") ||
+    text.includes(" dsm") ||
+    text.startsWith("dsm")
+  ) {
+    const zones = offices.dar_es_salaam_zones
+      .map((z) => `${z.kanda}: ${z.simu} (${z.anwani})`)
+      .join("\n");
+    return (
+      `Dar es Salaam ina kanda tano za TRA - piga namba ya kanda iliyo karibu nawe:\n\n${zones}\n\n` +
+      `Kama huna uhakika ni kanda gani, piga Call Centre: ${offices.call_centre.namba[0]} (bure).`
+    );
+  }
 
-  const officeMatch = offices.mikoa.find((o) =>
-    text.includes(normalize(o.mkoa))
-  );
-
+  // 2) Angalia kama swali linahusu ofisi/mkoa mwingine (pamoja na majina mbadala)
+  const officeMatch = offices.mikoa.find((o) => {
+    const names = [o.mkoa, ...(o.aliases || [])];
+    return names.some((n) => text.includes(normalize(n)));
+  });
   if (officeMatch) {
     return (
       `Ofisi ya TRA - ${officeMatch.mkoa}\n` +
@@ -135,15 +83,7 @@ function buildReply(userText) {
       `Simu: ${officeMatch.simu.join(", ")}`
     );
   }
-
-  // ----------------------------------------------------
-  // 2. CALL CENTRE
-  // ----------------------------------------------------
-
-  if (
-    text.includes("call centre") ||
-    text.includes("huduma kwa wateja")
-  ) {
+  if (text.includes("call centre") || text.includes("huduma kwa wateja")) {
     return (
       `${offices.call_centre.jina}\n` +
       `Namba: ${offices.call_centre.namba.join(", ")}\n` +
@@ -151,112 +91,49 @@ function buildReply(userText) {
     );
   }
 
-  // ----------------------------------------------------
-  // 3. FAQ KEYWORD MATCHING
-  // ----------------------------------------------------
-
+  // 2) Angalia FAQ kwa kulinganisha keywords
   let bestMatch = null;
   let bestScore = 0;
-
   for (const item of faq) {
     const score = item.keywords.reduce(
-      (acc, kw) =>
-        acc + (text.includes(normalize(kw)) ? 1 : 0),
+      (acc, kw) => acc + (text.includes(normalize(kw)) ? 1 : 0),
       0
     );
-
     if (score > bestScore) {
       bestScore = score;
       bestMatch = item;
     }
   }
-
   if (bestMatch && bestScore > 0) {
     return bestMatch.jibu;
   }
 
-  // ----------------------------------------------------
-  // 4. DEFAULT REPLY
-  // ----------------------------------------------------
-
+  // 3) Hakuna mfanano - jibu la default
   return (
-    "Samahani, sijaelewa swali lako vizuri. " +
-    "Unaweza kuuliza kuhusu TIN, VAT, EFD, kodi ya mapato, " +
-    "tax clearance, au jina la mkoa kupata namba ya ofisi ya TRA. " +
+    "Samahani, sijaelewa swali lako vizuri. Unaweza kuuliza kuhusu TIN, VAT, " +
+    "EFD, kodi ya mapato, tax clearance, au jina la mkoa kupata namba ya ofisi ya TRA. " +
     `Vinginevyo piga simu ${offices.call_centre.namba[0]} (bure).`
   );
 }
 
-// ======================================================
-// SEND WHATSAPP MESSAGE
-// ======================================================
-
+// --- Kutuma jibu kurudi WhatsApp kupitia Meta Cloud API ---
 async function sendWhatsAppMessage(to, body) {
-
-  const url =
-    `https://graph.facebook.com/v25.0/${PHONE_NUMBER_ID}/messages`;
-
-  console.log("Tunatuma ujumbe kwenda:", to);
-
-  try {
-
-    const response = await axios.post(
-      url,
-      {
-        messaging_product: "whatsapp",
-        to: to,
-        type: "text",
-        text: {
-          body: body
-        }
+  const url = `https://graph.facebook.com/v20.0/${PHONE_NUMBER_ID}/messages`;
+  await axios.post(
+    url,
+    {
+      messaging_product: "whatsapp",
+      to,
+      text: { body },
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+        "Content-Type": "application/json",
       },
-      {
-        headers: {
-          Authorization: `Bearer ${WHATSAPP_TOKEN}`,
-          "Content-Type": "application/json"
-        }
-      }
-    );
-
-    console.log(
-      "Meta API response:",
-      JSON.stringify(response.data, null, 2)
-    );
-
-    return response.data;
-
-  } catch (err) {
-
-    console.error(
-      "SEND WHATSAPP MESSAGE IMESHINDWA."
-    );
-
-    console.error(
-      "HTTP status:",
-      err.response?.status
-    );
-
-    console.error(
-      "Meta response:",
-      JSON.stringify(
-        err.response?.data,
-        null,
-        2
-      )
-    );
-
-    throw err;
-  }
+    }
+  );
 }
 
-// ======================================================
-// START SERVER
-// ======================================================
-
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(
-    `Server inaendesha kwenye port ${PORT}`
-  );
-});
+app.listen(PORT, () => console.log(`Server inaendesha kwenye port ${PORT}`));
