@@ -101,7 +101,7 @@ function buildReply(userText) {
 
 // --- Kutuma jibu kurudi WhatsApp kupitia Meta Cloud API ---
 async function sendWhatsAppMessage(to, body) {
-  const url = `https://graph.facebook.com/v25.0/${PHONE_NUMBER_ID}/messages`;
+  const url = `https://graph.facebook.com/v26.0/${PHONE_NUMBER_ID}/messages`;
   await axios.post(
     url,
     {
