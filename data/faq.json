@@ -1,32 +1,32 @@
 [
   {
     "id": "tin_new",
-    "keywords": ["tin", "namba ya mlipa kodi", "nipate wapi tin", "sina tin"],
+    "keywords": ["tin", "namba ya mlipa kodi", "nipate wapi tin", "sina tin", "kujisajili tin", "tin number"],
     "swali": "Nipate wapi TIN?",
-    "jibu": "Unaweza kupata TIN (Taxpayer Identification Number) kwa kujisajili mtandaoni kupitia mfumo wa TRA (Taxpayer Portal) kwa kutumia kitambulisho chako (NIDA), au kwa kufika ofisi ya TRA iliyo karibu nawe. Usajili wa TIN kwa mtu binafsi ni bure."
+    "jibu": "TIN (Taxpayer Identification Number) ni namba yako binafsi ya kitambulisho cha kodi - kila mtu anayefanya kazi, biashara, au anayehitaji huduma fulani za kiserikali anaihitaji.\n\nJinsi ya kuipata:\n1. Fungua Taxpayer Portal: taxpayerportal.tra.go.tz\n2. Bofya 'Taxpayer Registration' kisha 'Individual'\n3. Jaza fomu ukitumia namba yako ya NIDA (kitambulisho cha taifa)\n4. Thibitisha kwa OTP itakayotumwa kwenye simu yako\n5. TIN yako itatolewa papo hapo, bila malipo\n\nKama huna uwezo wa kufanya mtandaoni, unaweza kufika ofisi ya TRA iliyo karibu nawe ukiwa na kitambulisho chako cha NIDA - watakusaidia palepale.\n\nUnahitaji msaada zaidi? Andika jina la mkoa wako nikutumie namba ya ofisi ya karibu."
   },
   {
     "id": "vat_rate",
-    "keywords": ["vat", "kodi ya ongezeko la thamani", "asilimia ngapi vat"],
+    "keywords": ["vat", "kodi ya ongezeko la thamani", "asilimia ngapi vat", "vat ni nini"],
     "swali": "VAT ni asilimia ngapi Tanzania?",
-    "jibu": "Kiwango cha kawaida cha VAT Tanzania ni asilimia 18%. Baadhi ya bidhaa na huduma maalum zinaweza kuwa na msamaha au kiwango tofauti - wasiliana na TRA kwa uhakika kulingana na aina ya biashara yako."
+    "jibu": "VAT (Value Added Tax / Kodi ya Ongezeko la Thamani) Tanzania ni kodi inayotozwa kwenye bidhaa na huduma nyingi zinazouzwa nchini.\n\nKiwango kikuu: 18% - hiki ndicho kinachotumika kwa bidhaa na huduma nyingi.\n\nBaadhi ya mambo ya kuzingatia:\n- Bidhaa fulani za msingi (kama chakula kisichosindikwa) zinaweza kuwa na msamaha\n- Bidhaa za kuuza nje ya nchi (exports) mara nyingi huwa na kiwango cha 0%\n- Huduma za afya na elimu mara nyingi hazina VAT\n\nKama biashara yako ina mauzo yanayozidi TZS milioni 100 kwa mwaka, unatakiwa kusajiliwa kwa VAT na TRA. Kwa uhakika kamili kulingana na aina ya bidhaa/huduma yako, ni vizuri kuwasiliana na TRA moja kwa moja au kutembelea ofisi ya karibu."
   },
   {
     "id": "efd",
-    "keywords": ["efd", "mashine ya risiti", "electronic fiscal device"],
+    "keywords": ["efd", "mashine ya risiti", "electronic fiscal device", "efd ni nini"],
     "swali": "EFD ni nini?",
-    "jibu": "EFD (Electronic Fiscal Device) ni mashine ya kielektroniki inayotumika kutoa risiti za mauzo na kutuma taarifa za mauzo moja kwa moja TRA. Kila mfanyabiashara mwenye mauzo yanayozidi kiwango kilichowekwa analazimika kuwa na EFD."
+    "jibu": "EFD (Electronic Fiscal Device) ni mashine maalum ya kielektroniki inayotoa risiti za mauzo na kutuma taarifa za mauzo hayo moja kwa moja kwa mfumo wa TRA kwa wakati halisi.\n\nKwa nini ni muhimu:\n- Inasaidia TRA kufuatilia mauzo halisi ya biashara\n- Inampa mteja risiti rasmi yenye QR code inayoweza kuthibitishwa\n- Ni sharti la kisheria kwa wafanyabiashara wengi\n\nNani anatakiwa kuwa nayo:\nKila mfanyabiashara aliyesajiliwa kwa VAT, na wengine wenye mauzo yanayozidi kiwango kilichowekwa na TRA, wanatakiwa kutumia EFD.\n\nJinsi ya kupata EFD:\nUnaweza kununua kutoka kwa wasambazaji walioidhinishwa na TRA (EFD suppliers), kisha kuisajili kwenye mfumo wa TRA kabla ya kuanza kuitumia.\n\nKumbuka msemo wa TRA: 'Unapouza, toa risiti. Unaponunua, dai risiti.'"
   },
   {
     "id": "income_tax_pay",
-    "keywords": ["kulipa kodi ya mapato", "income tax", "namna ya kulipa kodi"],
+    "keywords": ["kulipa kodi ya mapato", "income tax", "namna ya kulipa kodi", "control number"],
     "swali": "Nailipaje kodi ya mapato?",
-    "jibu": "Kodi ya mapato inaweza kulipwa kupitia benki zilizoidhinishwa, mitandao ya simu (mfano M-Pesa, Tigo Pesa), au TRA Online Payment System kwa kutumia control number utakayopata baada ya kujaza tamko lako la kodi."
+    "jibu": "Kulipa kodi ya mapato (Income Tax) Tanzania ni rahisi ukifuata hatua hizi:\n\n1. Jaza tamko lako la kodi (tax return) kupitia Taxpayer Portal - hapa ndipo kiwango chako cha kodi kinapohesabiwa\n2. Baada ya kuwasilisha, utapata Control Number (namba maalum ya malipo)\n3. Lipa kwa kutumia njia yoyote kati ya hizi:\n   - Benki yoyote iliyoidhinishwa na TRA\n   - M-Pesa, Tigo Pesa, Airtel Money au Halopesa\n   - TRA Online Payment System\n4. Baada ya kulipa, utapata risiti ya malipo (payment receipt) - ihifadhi kama uthibitisho\n\nMuda wa kuwasilisha: Kwa watu binafsi wenye kipato zaidi ya chanzo kimoja au wafanyabiashara, tamko la kodi ya mwaka huwasilishwa kabla ya tarehe 30 Juni kila mwaka.\n\nUna control number tayari na unataka kujua jinsi ya kulipa? Au unahitaji msaada wa kujaza tamko? Niambie zaidi."
   },
   {
     "id": "tax_clearance",
-    "keywords": ["tax clearance", "cheti cha kutokuwa na deni", "hati ya kodi"],
+    "keywords": ["tax clearance", "cheti cha kutokuwa na deni", "hati ya kodi", "tcc"],
     "swali": "Nipate wapi Tax Clearance Certificate?",
-    "jibu": "Tax Clearance Certificate hutolewa baada ya kuwasilisha maombi kupitia TRA Online Portal, mradi huna deni la kodi lililobaki. Uchakataji huchukua muda mfupi endapo taarifa zote ni sahihi."
+    "jibu": "Tax Clearance Certificate (TCC) ni cheti kinachothibitisha kuwa huna deni la kodi lililobaki na TRA. Kinahitajika mara nyingi kwa mikataba ya serikali, kuomba leseni, au shughuli nyingine rasmi za kibiashara.\n\nJinsi ya kuomba:\n1. Ingia kwenye Taxpayer Portal ukitumia TIN yako\n2. Nenda sehemu ya 'Tax Clearance Certificate Application'\n3. Jaza maombi na uwasilishe\n4. Mfumo utaangalia kama una deni lolote la kodi lililobaki\n\nMasharti muhimu: Ni lazima uwe umewasilisha matamko yako yote ya kodi (tax returns) na ulipe deni lolote lililopo kabla cheti hakijatolewa.\n\nMuda wa uchakataji: Endapo taarifa zako zote ni sahihi na huna deni, cheti hutolewa haraka - mara nyingi ndani ya siku chache za kazi."
   }
 ]
